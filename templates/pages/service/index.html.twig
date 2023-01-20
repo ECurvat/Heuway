@@ -16,6 +16,25 @@
         {% endfor %}
         {% include "partials/_header-services.html.twig" %}
         <h1 class="mt-4">Services</h1>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.depot) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.ligne) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.debut) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.fin) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+        <p>{{ services.totalItemCount }} services trouvés</p>
         <div class="card-columns ">
         {% for service in services %}
             <div class="card border-light mb-3" style="max-width: 20rem;">

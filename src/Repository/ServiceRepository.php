@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Service;
+use App\Entity\ServiceSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @extends ServiceEntityRepository<Service>
@@ -37,6 +40,37 @@ class ServiceRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllVisibleQuery(ServiceSearch $search): Query
+    {
+        $query = $this->createQueryBuilder('s');
+
+        if ($search->getLigne()) {
+            $query = $query
+                ->andWhere('s.ligne = :ligne')
+                ->setParameter('ligne', $search->getLigne());
+        }
+
+        if ($search->getDepot()) {
+            $query = $query
+                ->andWhere('s.depot = :depot')
+                ->setParameter('depot', $search->getDepot());
+        }
+
+        if ($search->getDebut()) {
+            $query = $query
+                ->andWhere('s.debut >= :debut')
+                ->setParameter('debut', $search->getDebut());
+        }
+
+        if ($search->getFin()) {
+            $query = $query
+                ->andWhere('s.fin <= :fin')
+                ->setParameter('fin', $search->getFin());
+        }
+
+        return $query->getQuery();
     }
 
 //    /**
