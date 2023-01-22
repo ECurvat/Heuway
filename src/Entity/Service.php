@@ -23,6 +23,10 @@ class Service
     #[Assert\NotNull]
     private ?string $depot = null;
 
+    #[ORM\Column(length: 1)]
+    #[Assert\NotNull]
+    private ?int $ligne = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull]
     private ?\DateTimeInterface $debut = null;
@@ -68,6 +72,18 @@ class Service
     public function setDepot(string $depot): self
     {
         $this->depot = $depot;
+
+        return $this;
+    }
+
+    public function getLigne(): ?int
+    {
+        return $this->ligne;
+    }
+
+    public function setLigne(string $ligne): self
+    {
+        $this->ligne = $ligne;
 
         return $this;
     }
