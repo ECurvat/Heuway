@@ -23,12 +23,11 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ service.depot }} - {{ service.numerogroupe }}</h4>
                     <p class="card-text">
-                    Début : {{ service.debut|date("d/m/Y H:i") }}<br>
-                    Fin : {{ service.fin|date("d/m/Y H:i") }}<br>
-                    Pause : {{ service.pause|date("H:i") }}
+                    {{ service.debut|date("d/m/Y") }}<br>
+                    {{ service.debut|date("H:i") }} - {{ service.fin|date("H:i") }}<br>
                     </p>
-                    <a href="{{ path('service.edit', {id: service.id}) }}"><button type="button" class="btn btn-warning">Modifier</button></a>
-                    <a href="{{ path('service.delete', {id: service.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+                    <a href="{{ path('service.edit', {id: service.id}) }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
+                    <a href="{{ path('service.delete', {id: service.id}) }}"><button type="button" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce service ?')"><i class="fa-solid fa-trash"></i></button></a>
                 </div>
                 
             </div>
