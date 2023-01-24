@@ -77,7 +77,11 @@ class ServiceSearch {
      * @return ServiceSearch
      */
     public function setFin(?\DateTimeInterface $fin): self
-    {
+    {   
+        if ($fin == null) {
+            $this->fin = null;
+            return $this;
+        }
         $datetime = new \DateTime();
         $datetime->setTimestamp($fin->getTimestamp());
         $fin = $datetime;

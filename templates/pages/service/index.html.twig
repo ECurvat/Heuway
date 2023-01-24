@@ -18,14 +18,13 @@
         <h1 class="mt-4">Services</h1>
         {{ form_start(form) }}
         <div class="row">
+            <legend>Filtres</legend>
             <div class="col">
                 {{ form_row(form.depot) }}
             </div>
             <div class="col">
                 {{ form_row(form.ligne) }}
             </div>
-        </div>
-        <div class="row">
             <div class="col">
                 {{ form_row(form.debut) }}
             </div>
@@ -37,7 +36,7 @@
         <p>{{ services.totalItemCount }} services trouvés</p>
         <div class="card-columns ">
         {% for service in services %}
-            <div class="card border-light mb-3" style="max-width: 20rem;">
+            <div class="card bg-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Service n°{{ service.id }}</div>
                 <div class="card-body">
                     <h4 class="card-title">{{ service.depot }} - {{ service.numerogroupe }}</h4>
