@@ -17,7 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ServiceController extends AbstractController
 {
     #[Route('/service', name: 'service.index')]
-    public function index(ServiceRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    public function index(
+        ServiceRepository $repository, 
+        PaginatorInterface $paginator, 
+        Request $request
+        ) : Response
     {
         $search = new ServiceSearch();
         $form = $this->createForm(ServiceSearchFormType::class, $search);
@@ -95,7 +99,11 @@ class ServiceController extends AbstractController
     }
 
     #[Route('/service/delete/{id}', name: 'service.delete', methods: ['GET'])]
-    public function delete(EntityManagerInterface $manager, $id, ServiceRepository $repository) : Response {
+    public function delete(
+        EntityManagerInterface $manager, 
+        $id, 
+        ServiceRepository $repository
+        ) : Response {
         $service = $repository->findOneBy(['id' => $id]);
         if (!$service) {
             $this->addFlash('danger', 'Le service demandé n\'existe pas !');

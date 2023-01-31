@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Heuway -  Contrat{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}        
+        <p>{{ contrats.totalItemCount }} contrats trouvés</p>
+        <div class="card-columns">
+        {% for contrat in contrats %}
+            <div class="card bg-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Contrat n°{{ contrat.id }}</h4>
+                    <p class="card-text">
+                    Du {{ contrat.debut|date("d/m/Y") }} au {{ contrat.fin|date("d/m/Y") }}
+                    </p>
+                    <a href=""><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
+                    <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce contrat ?')"><i class="fa-solid fa-trash"></i></button></a>
+                </div>
+                
+            </div>
+        {% endfor %} 
+        </div>
+        <div class="navigation d-flex justify-content-center">
+            {{ knp_pagination_render(contrats) }}
+        </div>
+    </div>
+{% endblock %}
