@@ -56,6 +56,8 @@ class StatistiquesController extends AbstractController {
             $minutes = floor($seconds / 60);
             $hours = floor($minutes / 60);
             $minutes = $minutes % 60;
+            $hours = str_pad($hours, 2, '0', STR_PAD_LEFT);
+            $minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
             return array($hours, $minutes);
         }
 
