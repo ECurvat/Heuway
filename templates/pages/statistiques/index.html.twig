@@ -28,6 +28,50 @@
     {{ form_end(form) }}
     <div class="row">
         <p>Statistiques effectuées sur {{ services|length }} services</p>
+        <div class="col">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée totale des services
+                    <span class="badge bg-primary rounded-pill">{{ stats['dureeTotale'][0]}}h{{ stats['dureeTotale'][1]}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée minimale d'un service
+                    <span class="badge bg-success rounded-pill">{{ stats['dureeMinimum'][0]}}h{{ stats['dureeMinimum'][1]}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée moyenne d'un service
+                    <span class="badge bg-warning rounded-pill">{{ stats['dureeMoyenne'][0]}}h{{ stats['dureeMoyenne'][1]}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée maximale d'un service
+                    <span class="badge bg-danger rounded-pill">{{ stats['dureeMaximum'][0]}}h{{ stats['dureeMaximum'][1]}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée moyenne des pauses par service
+                    <span class="badge bg-info rounded-pill">{{ stats['pauseMoyenne'][0]}}h{{ stats['pauseMoyenne'][1]}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée moyenne des dispo par service
+                    <span class="badge bg-info rounded-pill">{{ stats['dispoMoyenne'][0]}}h{{ stats['dispoMoyenne'][1]}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée moyenne des déplacements par service
+                    <span class="badge bg-info rounded-pill">{{ stats['deplacementMoyen'][0]}}h{{ stats['deplacementMoyen'][1]}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée moyenne des coupures par service
+                    <span class="badge bg-info rounded-pill">{{ stats['coupureMoyenne'][0]}}h{{ stats['coupureMoyenne'][1]}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Durée moyenne indemnité nuit par service
+                    <span class="badge bg-info rounded-pill">{{ stats['nuitMoyenne'][0]}}h{{ stats['nuitMoyenne'][1]}}</span>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 {% endblock %}
