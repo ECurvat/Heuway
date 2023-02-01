@@ -56,4 +56,58 @@ class ContratController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/contrat/edit/{id}', name: 'contrat.edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request $request,
+        EntityManagerInterface $manager,
+        $id,
+        ContratRepository $repository
+        ) : Response
+    {
+        $contrat = $repository->findOneBy(['id' => $id]);
+        if (!$contrat) {
+            $this->addFlash('danger', 'Le contrat demandé n\'existe pas !');
+
+            return $this->redirectToRoute('contrat.index');
+        }
+        
+        $form = $this->createForm(ContratType::class, $contrat);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contrat = $form->getData();
+
+            $manager->persist($contrat);
+            $manager->flush();
+
+            $this->addFlash('success', 'Le contrat a bien été modifié !');
+            return $this->redirectToRoute('contrat.index');
+        }
+        
+        return $this->render('pages/contrat/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/contrat/delete/{id}', name: 'contrat.delete', methods: ['GET'])]
+    public function delete(
+        EntityManagerInterface $manager, 
+        $id, 
+        ContratRepository $repository
+        ) : Response {
+        $contrat = $repository->findOneBy(['id' => $id]);
+        if (!$contrat) {
+            $this->addFlash('danger', 'Le contrat demandé n\'existe pas !');
+
+            return $this->redirectToRoute('contrat.index');
+        }
+
+        $manager->remove($contrat);
+        $manager->flush();
+
+        $this->addFlash('success', 'Le contrat a bien été supprimé !');
+
+        return $this->redirectToRoute('contrat.index');
+    }
 }

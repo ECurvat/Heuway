@@ -13,7 +13,8 @@
             <div class="alert alert-danger">
                 {{ message }}
             </div>
-        {% endfor %}        
+        {% endfor %}
+        {% include "partials/_header-entity.html.twig" %}
         <p>{{ contrats.totalItemCount }} contrats trouvés</p>
         <div class="card-columns">
         {% for contrat in contrats %}
@@ -23,10 +24,9 @@
                     <p class="card-text">
                     Du {{ contrat.debut|date("d/m/Y") }} au {{ contrat.fin|date("d/m/Y") }}
                     </p>
-                    <a href=""><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
-                    <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce contrat ?')"><i class="fa-solid fa-trash"></i></button></a>
+                    <a href="{{ path('contrat.edit', {id: contrat.id}) }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
+                    <a href="{{ path('contrat.delete', {id: contrat.id}) }}"><button type="button" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce contrat ?')"><i class="fa-solid fa-trash"></i></button></a>
                 </div>
-                
             </div>
         {% endfor %} 
         </div>
