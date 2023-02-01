@@ -15,14 +15,24 @@
             </div>
         {% endfor %}
         {% include "partials/_header-entity.html.twig" %}
-        <p>{{ contrats.totalItemCount }} contrats trouvés</p>
+        <p class="mt-4">{{ contrats.totalItemCount }} contrats trouvés</p>
         <div class="card-columns">
         {% for contrat in contrats %}
             <div class="card bg-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-body">
                     <h4 class="card-title">Contrat n°{{ contrat.id }}</h4>
                     <p class="card-text">
-                    Du {{ contrat.debut|date("d/m/Y") }} au {{ contrat.fin|date("d/m/Y") }}
+                    Du {{ contrat.debut|date("d/m/Y") }} au {{ contrat.fin|date("d/m/Y") }}<br>
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services associés</button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                                {% for service in contrat.services %}
+                                    <a class="dropdown-item" href="{{ path('service.edit', {id: service.id}) }}">T{{ service.ligne }} {{ service.debut|date("d/m") }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                     </p>
                     <a href="{{ path('contrat.edit', {id: contrat.id}) }}"><button type="button" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button></a>
                     <a href="{{ path('contrat.delete', {id: contrat.id}) }}"><button type="button" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce contrat ?')"><i class="fa-solid fa-trash"></i></button></a>

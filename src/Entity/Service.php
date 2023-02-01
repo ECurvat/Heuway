@@ -47,6 +47,9 @@ class Service
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $coupure = null;
 
+    #[ORM\ManyToOne(targetEntity: Contrat::class, inversedBy: 'services')]
+    private ?\App\Entity\Contrat $contrat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +159,18 @@ class Service
     public function setCoupure(\DateTimeInterface $coupure): self
     {
         $this->coupure = $coupure;
+
+        return $this;
+    }
+
+    public function getContrat(): ?Contrat
+    {
+        return $this->contrat;
+    }
+
+    public function setContrat(?Contrat $contrat): self
+    {
+        $this->contrat = $contrat;
 
         return $this;
     }

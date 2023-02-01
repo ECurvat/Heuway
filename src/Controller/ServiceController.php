@@ -6,6 +6,7 @@ use App\Entity\Service;
 use App\Entity\ServiceSearch;
 use App\Form\ServiceSearchFormType;
 use App\Form\ServiceType;
+use App\Repository\ContratRepository;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -43,11 +44,14 @@ class ServiceController extends AbstractController
     #[Route ('/service/nouveau', 'service.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        EntityManagerInterface $manager
+        EntityManagerInterface $manager,
+        ContratRepository $contratRepository
         ) : Response
     {
         $service = new Service();
-        $form = $this->createForm(ServiceType::class, $service);
+        $form = $this->createForm(ServiceType::class, $service, [
+            'contrats' => $contratRepository->findAll()
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -70,7 +74,8 @@ class ServiceController extends AbstractController
         Request $request,
         EntityManagerInterface $manager,
         $id,
-        ServiceRepository $repository
+        ServiceRepository $repository,
+        ContratRepository $contratRepository
         ) : Response
     {
         $service = $repository->findOneBy(['id' => $id]);
@@ -80,7 +85,9 @@ class ServiceController extends AbstractController
             return $this->redirectToRoute('service.index');
         }
         
-        $form = $this->createForm(ServiceType::class, $service);
+        $form = $this->createForm(ServiceType::class, $service, [
+            'contrats' => $contratRepository->findAll()
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

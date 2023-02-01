@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Contrat;
+use App\Repository\ContratRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -14,6 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ContratType extends AbstractType
 {
+    private $contratRepository;
+
+    public function __construct(ContratRepository $contratRepository)
+    {
+        $this->contratRepository = $contratRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

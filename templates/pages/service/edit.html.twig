@@ -76,6 +76,15 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                {{ form_label(form.contrat) }}
+                {{ form_widget(form.contrat) }}
+                <div class="invalid-feedback">{{ form_errors(form.contrat) }}</div>
+            </div>
+        </div>
+    </div>
     
     {{ form_end(form) }}
 </div>

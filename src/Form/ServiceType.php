@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Contrat;
 use App\Entity\Service;
+use App\Repository\ContratRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -16,7 +19,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ServiceType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(
+        FormBuilderInterface $builder, 
+        array $options
+        ): void
     {
         $builder
             ->add('numero_groupe', IntegerType::class, [
@@ -145,6 +151,20 @@ class ServiceType extends AbstractType
                 'required' => false,
                 'empty_data' => '00:00',
             ])
+            ->add('contrat', EntityType::class, [
+                'class' => Contrat::class,
+                'choices' => $options['contrats'],
+                'attr' => [
+                    'class' => 'form-select',
+                ],
+                'label' => 'Contrat',
+                'label_attr' => [
+                    'class' => 'form-label mt-4',
+                ],
+                'constraints' => [
+                    new Assert\NotNull(),
+                ],
+            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4 mb-4',
@@ -158,6 +178,7 @@ class ServiceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Service::class,
+            'contrats' => null,
         ]);
     }
 }
