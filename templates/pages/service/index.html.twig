@@ -34,7 +34,7 @@
         </div>
         {{ form_end(form) }}
         <p>{{ services.totalItemCount }} services trouvés</p>
-        <div class="card-columns">
+        <div class="card-group">
         {% for service in services %}
             <div class="card bg-secondary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Service n°{{ service.id }}</div>
