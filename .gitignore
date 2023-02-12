@@ -18,3 +18,4 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+sauvegarde-bd-1202023.sql
