@@ -84,7 +84,8 @@ class StatistiquesController extends AbstractController {
         
 
         if (!$services) {
-            $this->addFlash('warning', 'Aucun service trouvé');
+            $this->addFlash('danger', 'Aucun service trouvé');
+            return $this->redirectToRoute('statistiques.index');
         } else {
             // Pour la durée totale des services et la durée moyenne
             $totalMinutes = 0;
